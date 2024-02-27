@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<form class="d-flex mt-5" method="post">
+    {% csrf_token %}
+    <input class="me-2" type="text" placeholder="Per rows " aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Enter</button>
+</form>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for d in paginated_items %}
+        <tr>
+            <th scope="row">{{ d.id }}</th>
+            <td>{{ d.name }}</td>
+            <td>{{ d.rollno }}</td>
+            <td>{{ d.standard }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+  <p>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+  
+            {% if paginated_items.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ paginated_items.previous_page_number }}">Previous</a></li>
+          {% endif %}
+            {% comment %} <p>
+                {{ len }}
+            </p> {% endcomment %}
+          <li class="page-item"><a class="page-link" href="#">Page no. {{ paginated_items.number }} of  {{ count }} {{ paginated_items.paginator.num_pages}} </a></li>
+            
+          {% if paginated_items.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ paginated_items.next_page_number }}">Next</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+  </p>
+
+  
+
+{% endblock content %}
