@@ -9,3 +9,8 @@ class StudentModelSerializer(serializers.ModelSerializer):
 
     # def get_standard_name(self, obj):
     #     return obj.standard_name.standard_name if obj.standard_name is not None else None
+
+class StandardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Standard
+        fields = '__all__'

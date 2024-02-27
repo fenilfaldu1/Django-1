@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .serializers import StudentModelSerializer
+from .serializers import StudentModelSerializer,StandardSerializer
 from rest_framework.views import APIView 
-from .models import Student
+from .models import Student,Standard
 from rest_framework.response import Response
 from rest_framework import status,viewsets
 from django.core.paginator import Paginator
@@ -81,6 +81,23 @@ class StudentModelAPI(APIView):
             except Exception as e:
                 return Response({"error":"Studnet Not FOund"},status=status.HTTP_404_NOT_FOUND)
 
+
+class StandardList(APIView):
+    def get(self, request):
+        try:
+            standards = Standard.objects.all()
+            serialized_data = StandardSerializer(standards, many=True).data
+            # return Response(serializer.data)
+            return Response({'standard': serialized_data}, status=status.HTTP_200_OK)
+        except:
+            return Response({"error":"Student Not Found."},status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request):
+        serializer = StandardSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PaginationAPI(APIView):
