@@ -108,12 +108,12 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST'),
         'PORT': '3306',
         # "USER":"root",
-        # "PASSWORD":"admin",
+        # "PASSWORD":"root",
         # "HOST":"localhost",
         # "PORT":3306,
-        # "NAME":"djangotest",
+        # "NAME":"demodb",
         #  'PORT': '3306',
-        # "NAME":"djangotest"
+        
 
         # 'NAME': BASE_DIR / 'db.sqlite3',
     }
